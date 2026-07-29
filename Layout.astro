@@ -1,0 +1,153 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  path: string; // z.B. "/", "/verkaufen", ...
+}
+const { title, description, path } = Astro.props;
+
+const navItems = [
+  { href: "/", label: "Start" },
+  { href: "/immobilien", label: "Immobilien" },
+  { href: "/verkaufen", label: "Verkaufen" },
+  { href: "/kaufen", label: "Kaufen" },
+  { href: "/ueber-mich", label: "Über mich" },
+  { href: "/kontakt", label: "Kontakt" },
+];
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={`https://www.bertsch-immo.de${path === "/" ? "" : path}`} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={`https://www.bertsch-immo.de${path === "/" ? "" : path}`} />
+<meta property="og:locale" content="de_DE" />
+
+<!-- Fonts lokal über @fontsource wäre ideal; für den Start CDN mit preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,380&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Schema.org: RealEstateAgent (lokales SEO + GEO) -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Marc Bertsch Immobilien",
+  "image": "https://www.bertsch-immo.de/images/hero.jpg",
+  "url": "https://www.bertsch-immo.de",
+  "telephone": "+49-176-41771712",
+  "email": "marc.bertsch@bertsch-immo.de",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Weylstraße 8",
+    "postalCode": "68167",
+    "addressLocality": "Mannheim",
+    "addressCountry": "DE"
+  },
+  "areaServed": ["Mannheim", "Ludwigshafen am Rhein", "Frankenthal", "Germersheim", "Eisenberg (Pfalz)"],
+  "priceRange": "€€",
+  "knowsAbout": "Immobilienverkauf, Immobilienbewertung, Immobilienkauf in Mannheim und der Metropolregion Rhein-Neckar"
+})} />
+
+<link rel="stylesheet" href="/styles/global.css" />
+</head>
+<body>
+
+<header>
+  <div class="container nav" id="nav">
+    <a class="brand" href="/" aria-label="Marc Bertsch Immobilien – Startseite">
+      <img src="/images/logo-negativ.svg" alt="Marc Bertsch Immobilien – Logo" />
+    </a>
+    <ul>
+      {navItems.map(item => (
+        <li><a href={item.href} class={path === item.href ? "active" : ""}>{item.label}</a></li>
+      ))}
+      <li><a class="btn btn-solid" href="/bewertung">Immobilienbewertung</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menü öffnen" id="navToggle">Menü</button>
+  </div>
+</header>
+
+<main>
+  <slot />
+</main>
+
+<footer>
+  <div class="container foot-grid">
+    <div>
+      <img src="/images/logo-negativ.svg" alt="Marc Bertsch Immobilien" />
+      <p>Marc Bertsch Immobilien · Weylstraße 8 · 68167 Mannheim<br />
+      <a href="mailto:marc.bertsch@bertsch-immo.de">marc.bertsch@bertsch-immo.de</a> · <a href="tel:+4917641771712">0176 41771712</a></p>
+    </div>
+    <nav aria-label="Footer-Navigation">
+      <a href="/bewertung">Immobilienbewertung</a>
+      <a href="/immobilien">Immobilien</a>
+      <a href="/verkaufen">Verkaufen</a>
+      <a href="/kaufen">Kaufen</a>
+      <a href="/ueber-mich">Über mich</a>
+      <a href="https://www.noe-hoffmann.de/" target="_blank" rel="noopener">Noe &amp; Hoffmann ↗</a>
+      <a href="/impressum">Impressum</a>
+      <a href="/datenschutz">Datenschutz</a>
+    </nav>
+  </div>
+  <div class="container foot-bottom">
+    <span>© 2026 Marc Bertsch Immobilien, Mannheim</span>
+  </div>
+</footer>
+
+<script>
+  // Mobiles Menü
+  document.getElementById('navToggle')?.addEventListener('click', () => {
+    document.getElementById('nav')?.classList.toggle('open');
+  });
+
+  // Scroll-Reveal (läuft auf jeder Seite neu)
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Count-Up-Animation für Stats-Band
+  function animateCount(el: HTMLElement) {
+    const target = parseInt(el.dataset.count || "0", 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now: number) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const statIo = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.stat-num').forEach(el => animateCount(el as HTMLElement));
+      statIo.unobserve(e.target);
+    }
+  }), { threshold: 0.4 });
+  document.querySelectorAll('.stats-band').forEach(el => statIo.observe(el));
+
+  // Optionsbuttons (Formulare: Immobilienart auswählen)
+  document.querySelectorAll('.opt-grid').forEach(g => {
+    g.addEventListener('click', e => {
+      const target = e.target as HTMLElement;
+      if (!target.classList.contains('opt')) return;
+      g.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+      target.classList.add('selected');
+    });
+  });
+</script>
+
+</body>
+</html>

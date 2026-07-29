@@ -1,0 +1,127 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Immobilie kaufen in Mannheim – Marc Bertsch Immobilien" description="Immobilie kaufen in Mannheim – inklusive Zugang zu diskreten Off-Market-Angeboten. Jetzt Suchprofil anlegen." path="/kaufen">
+
+<section class="page-hero on-dark">
+<div aria-hidden="true" class="q-grid-bg"></div>
+<div class="container" style="position:relative">
+<p class="crumb"><a href="/">Start</a> / Kaufen</p>
+<h1>Auf der Suche nach Ihrer <em>Traumimmobilie?</em></h1>
+<p>Ich begleite Sie auf dem Weg zu Ihrem neuen Zuhause oder Ihrer Kapitalanlage – persönlich, ehrlich und lösungsorientiert. Durch mein Netzwerk und meine lokale Marktkenntnis profitieren Sie auch von Immobilien, die nie öffentlich angeboten werden.</p>
+<div class="hero-ctas">
+<a class="btn btn-solid" data-anchor="" href="#suchprofil">Suchprofil anlegen</a>
+<a class="btn btn-ghost" href="/immobilien">Aktuelle Angebote ansehen</a>
+</div>
+</div>
+</section>
+ So funktioniert's 
+<section>
+<div class="container">
+<div class="sec-head reveal">
+<span class="q-chip">So funktioniert es</span>
+<h2>In drei Schritten zu Ihrer Immobilie</h2>
+</div>
+<div class="proc-grid cols-3 reveal">
+<div class="proc"><h3>Suchprofil anlegen</h3><p>Sie sagen mir, was Sie suchen – Lage, Größe, Budget. Kostenlos und unverbindlich.</p></div>
+<div class="proc"><h3>Passende Vorschläge erhalten</h3><p>Sie erhalten ausgewählte Angebote – auch diskrete Off-Market-Immobilien vor allen anderen.</p></div>
+<div class="proc"><h3>Besichtigung &amp; Begleitung</h3><p>Ich begleite Sie durch Besichtigung, Verhandlung und Kauf – bis zur Schlüsselübergabe.</p></div>
+</div>
+</div>
+</section>
+ Off-Market 
+<section class="sec-greige" style="padding:72px 0">
+<div class="container">
+<div class="koop reveal">
+<div>
+<span class="q-chip">Ihr Vorteil</span>
+<h3>Zugang zu diskreten Off-Market-Angeboten</h3>
+<p>Viele hochwertige Immobilien in Mannheim wechseln den Eigentümer, ohne je auf einem Portal zu erscheinen. Als Suchkunde erfahren Sie von diesen Objekten zuerst – exklusiv und diskret.</p>
+</div>
+<a class="btn btn-solid" data-anchor="" href="#suchprofil">Jetzt Suchprofil anlegen</a>
+</div>
+</div>
+</section>
+ Suchprofil-Formular 
+<section id="suchprofil">
+<div class="container narrow">
+<div class="sec-head reveal">
+<span class="q-chip">Suchprofil</span>
+<h2>Was suchen Sie?</h2>
+<p>Je genauer Ihr Profil, desto besser passen die Vorschläge. Kostenlos und jederzeit widerrufbar.</p>
+</div>
+<div class="form-wrap reveal">
+<form id="searchForm" name="suchprofil" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate="">
+<input type="hidden" name="form-name" value="suchprofil" />
+<p class="hidden" style="display:none"><label>Nicht ausfüllen: <input name="bot-field" /></label></p>
+<p style="font-weight:600;margin-bottom:4px">Welche Immobilienart suchen Sie?</p>
+<div class="opt-grid" data-group="such-art">
+<button class="opt" type="button">Wohnung</button>
+<button class="opt" type="button">Haus</button>
+<button class="opt" type="button">Grundstück</button>
+<button class="opt" type="button">Kapitalanlage</button>
+</div>
+<div class="frow">
+<div class="field"><label for="s-lage">Gewünschte Lage(n)</label><input id="s-lage" name="lage" placeholder="z. B. Feudenheim, Oststadt" type="text"/></div>
+<div class="field"><label for="s-budget">Budget bis (ca.)</label><input id="s-budget" name="budget" inputmode="numeric" placeholder="€" type="text"/></div>
+</div>
+<div class="frow">
+<div class="field"><label for="s-name">Ihr Name *</label><input autocomplete="name" id="s-name" name="name" required="" type="text"/></div>
+<div class="field"><label for="s-mail">E-Mail *</label><input autocomplete="email" id="s-mail" name="email" required="" type="email"/></div>
+</div>
+<label class="consent"><input id="s-ds" name="datenschutz" required="" type="checkbox"/><span>Ich habe die <a href="#" onclick="return false">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage einverstanden. *</span></label>
+<div class="fnav"><span></span><button class="btn btn-solid" type="submit">Suchprofil senden</button></div>
+</form>
+<div class="form-done" id="searchDone">
+<span class="q-chip">Suchprofil erhalten</span>
+<h3 style="margin-top:14px">Vielen Dank!</h3>
+<p style="color:var(--ink-soft);max-width:46ch;margin:0 auto">Ich melde mich persönlich bei Ihnen, sobald passende Immobilien verfügbar sind – Marc Bertsch.</p>
+</div>
+<p class="form-note">Prototyp-Hinweis: Das Formular sendet noch keine Daten – Versand wird in der Umsetzung angebunden.</p>
+</div>
+</div>
+</section>
+ CTA-Band Kaufen 
+<section class="cta-band on-dark">
+<div aria-hidden="true" class="q-grid-bg"></div>
+<div class="container">
+<div>
+<h2>Lieber direkt sprechen?</h2>
+<p>Erzählen Sie mir, was Sie suchen – oft weiß ich schon von der passenden Immobilie.</p>
+</div>
+<div class="hero-ctas">
+<a class="btn btn-solid" href="/kontakt">Kontakt aufnehmen</a>
+</div>
+</div>
+</section>
+
+</Layout>
+
+<script>
+  const form = document.getElementById('searchForm') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('s-name') as HTMLInputElement;
+    const mail = document.getElementById('s-mail') as HTMLInputElement;
+    const ds = document.getElementById('s-ds') as HTMLInputElement;
+    if (!name.checkValidity() || !mail.checkValidity() || !ds.checked) {
+      if (!name.checkValidity()) name.reportValidity();
+      else if (!mail.checkValidity()) mail.reportValidity();
+      else ds.focus();
+      return;
+    }
+    try {
+      const formData = new FormData(form);
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+    } catch (err) {
+      console.error('Formular-Versand fehlgeschlagen:', err);
+    }
+    form.style.display = 'none';
+    const done = document.getElementById('searchDone');
+    if (done) done.style.display = 'block';
+  });
+</script>

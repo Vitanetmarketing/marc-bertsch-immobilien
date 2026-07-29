@@ -1,0 +1,95 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Kontakt – Marc Bertsch Immobilien, Mannheim" description="Kontaktieren Sie Marc Bertsch für ein unverbindliches Gespräch über Ihre Immobilie in Mannheim." path="/kontakt">
+
+<section class="page-hero on-dark" style="padding-bottom:52px">
+<div aria-hidden="true" class="q-grid-bg"></div>
+<div class="container" style="position:relative">
+<p class="crumb"><a href="/">Start</a> / Kontakt</p>
+<h1>Lassen Sie uns <em>sprechen.</em></h1>
+<p>Ich freue mich darauf, Sie und Ihre Immobilie kennenzulernen. Kontaktieren Sie mich jederzeit für ein unverbindliches Gespräch.</p>
+</div>
+</section>
+<section>
+<div class="container contact-grid">
+<div class="reveal">
+<div class="contact-card" style="margin-top:0">
+<img alt="Marc Bertsch" src="/images/portrait.jpg"/>
+<div><b>Marc Bertsch</b><span>Ihr Ansprechpartner – persönlich &amp; direkt</span></div>
+</div>
+<address>
+        Marc Bertsch Immobilien<br/>
+        Weylstraße 8 · 68167 Mannheim<br/>
+<a href="mailto:marc.bertsch@bertsch-immo.de">marc.bertsch@bertsch-immo.de</a><br/>
+<a href="tel:+4917641771712">0176 41771712</a>
+</address>
+<div aria-label="Platzhalter für Anfahrtskarte" class="map-ph" role="img">
+<div aria-hidden="true" class="q-grid-bg"></div>
+<span>Anfahrtskarte · Weylstraße 8, Mannheim</span>
+</div>
+<p style="font-size:.78rem;color:var(--ink-soft);margin-top:10px">In der Umsetzung: statisches Kartenbild mit Link zu Google Maps (DSGVO-freundlich, ohne Cookie-Banner).</p>
+</div>
+<div class="form-wrap reveal">
+<form id="contactForm" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate="">
+<input type="hidden" name="form-name" value="kontakt" />
+<p class="hidden" style="display:none"><label>Nicht ausfüllen: <input name="bot-field" /></label></p>
+<div class="frow" style="margin-top:0">
+<div class="field"><label for="cname">Ihr Name *</label><input autocomplete="name" id="cname" name="name" required="" type="text"/></div>
+<div class="field"><label for="ctel">Telefon (optional)</label><input autocomplete="tel" id="ctel" name="telefon" type="tel"/></div>
+</div>
+<div class="field" style="margin-top:18px"><label for="cmail">E-Mail *</label><input autocomplete="email" id="cmail" name="email" required="" type="email"/></div>
+<div class="field" style="margin-top:18px">
+<label for="cthema">Worum geht es?</label>
+<select id="cthema" name="thema">
+<option>Ich möchte meine Immobilie verkaufen</option>
+<option>Ich möchte eine Bewertung</option>
+<option>Ich suche eine Immobilie</option>
+<option>Sonstiges</option>
+</select>
+</div>
+<div class="field" style="margin-top:18px"><label for="cmsg">Ihre Nachricht *</label><textarea id="cmsg" name="nachricht" required="" rows="5"></textarea></div>
+<label class="consent"><input id="cds" name="datenschutz" required="" type="checkbox"/><span>Ich habe die <a href="#" onclick="return false">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage einverstanden. *</span></label>
+<div class="fnav"><span></span><button class="btn btn-solid" type="submit">Nachricht senden</button></div>
+</form>
+<div class="form-done" id="contactDone">
+<h3>Nachricht erhalten.</h3>
+<p style="color:var(--ink-soft)">Ich melde mich persönlich bei Ihnen – Marc Bertsch.</p>
+</div>
+<p class="form-note">Prototyp-Hinweis: Das Formular sendet noch keine Daten – Versand wird in der Umsetzung angebunden.</p>
+</div>
+</div>
+</section>
+
+</Layout>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('cname') as HTMLInputElement;
+    const mail = document.getElementById('cmail') as HTMLInputElement;
+    const msg = document.getElementById('cmsg') as HTMLTextAreaElement;
+    const ds = document.getElementById('cds') as HTMLInputElement;
+    if (!name.checkValidity() || !mail.checkValidity() || !msg.checkValidity() || !ds.checked) {
+      if (!name.checkValidity()) name.reportValidity();
+      else if (!mail.checkValidity()) mail.reportValidity();
+      else if (!msg.checkValidity()) msg.reportValidity();
+      else ds.focus();
+      return;
+    }
+    try {
+      const formData = new FormData(form);
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+    } catch (err) {
+      console.error('Formular-Versand fehlgeschlagen:', err);
+    }
+    form.style.display = 'none';
+    const done = document.getElementById('contactDone');
+    if (done) done.style.display = 'block';
+  });
+</script>

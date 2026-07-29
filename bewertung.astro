@@ -1,0 +1,155 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Kostenlose Immobilienbewertung Mannheim – Marc Bertsch Immobilien" description="Kostenlose und unverbindliche Immobilienbewertung in Mannheim. Persönliche Rückmeldung innerhalb von 24 Stunden." path="/bewertung">
+
+<section class="page-hero on-dark" style="padding-bottom:52px">
+<div aria-hidden="true" class="q-grid-bg"></div>
+<div class="container" style="position:relative">
+<p class="crumb"><a href="/">Start</a> / Immobilienbewertung</p>
+<h1>Was ist Ihre Immobilie in Mannheim <em>wert?</em></h1>
+<p>Kostenlos. Unverbindlich. Von einem Mannheimer, der den Markt kennt. Sie erhalten innerhalb von 24 Stunden eine persönliche Rückmeldung.</p>
+</div>
+</section>
+<section class="sec-tint" style="padding-top:64px">
+<div class="container rate-layout">
+<!-- Formular -->
+<div class="form-wrap reveal" id="formular">
+<div aria-hidden="true" class="steps-nav">
+<button class="active" id="tab1" type="button">1 · Immobilie</button>
+<button id="tab2" type="button">2 · Eckdaten</button>
+<button id="tab3" type="button">3 · Kontakt</button>
+</div>
+<form id="rateForm" name="immobilienbewertung" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate="">
+<input type="hidden" name="form-name" value="immobilienbewertung" />
+<p class="hidden" style="display:none"><label>Nicht ausfüllen: <input name="bot-field" /></label></p>
+<div class="fstep active" data-step="1">
+<p style="font-weight:600;margin-bottom:4px">Um welche Immobilie handelt es sich?</p>
+<div class="opt-grid" data-group="art">
+<button class="opt" type="button">Wohnung</button>
+<button class="opt" type="button">Haus</button>
+<button class="opt" type="button">Grundstück</button>
+<button class="opt" type="button">Mehrfamilienhaus</button>
+</div>
+<div class="frow">
+<div class="field"><label for="stadtteil">Stadtteil / Ort</label><input id="stadtteil" name="stadtteil" placeholder="z. B. Feudenheim" type="text"/></div>
+<div class="field"><label for="plz">Postleitzahl</label><input id="plz" name="plz" inputmode="numeric" placeholder="z. B. 68167" type="text"/></div>
+</div>
+<div class="fnav"><span></span><button class="btn btn-solid" onclick="goStep(2)" type="button">Weiter</button></div>
+</div>
+<div class="fstep" data-step="2">
+<div class="frow">
+<div class="field"><label for="flaeche">Wohnfläche (ca., optional)</label><input id="flaeche" name="flaeche" inputmode="numeric" placeholder="m²" type="text"/></div>
+<div class="field"><label for="baujahr">Baujahr (ca., optional)</label><input id="baujahr" name="baujahr" inputmode="numeric" placeholder="z. B. 1978" type="text"/></div>
+</div>
+<div class="frow">
+<div class="field">
+<label for="anlass">Was ist Ihr Anlass?</label>
+<select id="anlass" name="anlass">
+<option>Verkauf konkret geplant</option>
+<option>Verkauf in den nächsten 1–2 Jahren</option>
+<option>Erbschaft / Nachlass</option>
+<option>Ich möchte den Wert nur kennen</option>
+</select>
+</div>
+<div class="field">
+<label for="weg">Wie soll die Bewertung erfolgen?</label>
+<select id="weg" name="bewertungsweg">
+<option value="erst">Ersteinschätzung (per E-Mail / Telefon)</option>
+<option value="vorort">Persönliche Bewertung vor Ort</option>
+</select>
+</div>
+</div>
+<div class="fnav">
+<button class="btn btn-ghost dark-on-light" onclick="goStep(1)" type="button">Zurück</button>
+<button class="btn btn-solid" onclick="goStep(3)" type="button">Weiter</button>
+</div>
+</div>
+<div class="fstep" data-step="3">
+<div class="frow">
+<div class="field"><label for="name">Ihr Name *</label><input autocomplete="name" id="name" name="name" required="" type="text"/></div>
+<div class="field"><label for="tel">Telefon (für Rückfragen)</label><input autocomplete="tel" id="tel" name="telefon" type="tel"/></div>
+</div>
+<div class="field" style="margin-top:18px"><label for="email">E-Mail *</label><input autocomplete="email" id="email" name="email" required="" type="email"/></div>
+<label class="consent"><input id="ds" name="datenschutz" required="" type="checkbox"/><span>Ich habe die <a href="#" onclick="return false">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage einverstanden. *</span></label>
+<div class="fnav">
+<button class="btn btn-ghost dark-on-light" onclick="goStep(2)" type="button">Zurück</button>
+<button class="btn btn-solid" type="submit">Bewertung anfordern</button>
+</div>
+</div>
+</form>
+<div class="form-done" id="formDone">
+<span class="q-chip">Anfrage erhalten</span>
+<h3 style="margin-top:14px">Vielen Dank für Ihr Vertrauen.</h3>
+<p style="color:var(--ink-soft);max-width:46ch;margin:0 auto">Ich melde mich persönlich innerhalb von 24 Stunden bei Ihnen – Marc Bertsch.<br/>Sie erreichen mich auch direkt unter <a href="tel:+4917641771712">0176 41771712</a>.</p>
+</div>
+<p class="form-note">Prototyp-Hinweis: Das Formular sendet noch keine Daten – Versand wird in der Umsetzung angebunden.</p>
+</div>
+<!-- Trust-Spalte -->
+<aside class="trust-side reveal">
+<img alt="Marc Bertsch" src="/images/portrait.jpg"/>
+<p style="font-family:var(--font-display);font-style:italic;font-size:1.1rem;line-height:1.45">„Sie erhalten von mir eine ehrliche Einschätzung – keine Lockangebote.“</p>
+<ul>
+<li>100 % kostenlos &amp; unverbindlich</li>
+<li>Persönliche Rückmeldung in 24 Stunden</li>
+<li>Marktdaten aus Mannheim &amp; Umgebung</li>
+<li>Immobilienmakler (IHK) · Berater (LBS)</li>
+</ul>
+</aside>
+</div>
+</section>
+ Danach 
+<section>
+<div class="container">
+<div class="sec-head reveal">
+<span class="q-chip">Und dann?</span>
+<h2>So geht es nach Ihrer Anfrage weiter</h2>
+</div>
+<div class="proc-grid cols-3 reveal">
+<div class="proc"><h3>Persönliche Rückmeldung</h3><p>Ich melde mich innerhalb von 24 Stunden – kein Callcenter, keine Warteschleife.</p></div>
+<div class="proc"><h3>Fundierte Einschätzung</h3><p>Sie erhalten eine ehrliche Werteinschätzung auf Basis aktueller Marktdaten.</p></div>
+<div class="proc"><h3>Sie entscheiden</h3><p>Ob und wie es weitergeht, bestimmen allein Sie – ohne Verpflichtung.</p></div>
+</div>
+</div>
+</section>
+
+</Layout>
+
+<script>
+  function goStep(n: number) {
+    document.querySelectorAll('#rateForm .fstep').forEach(el => {
+      el.classList.toggle('active', (el as HTMLElement).dataset.step === String(n));
+    });
+    [1, 2, 3].forEach(i => document.getElementById('tab' + i)?.classList.toggle('active', i === n));
+    document.getElementById('formular')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  (window as any).goStep = goStep;
+
+  const form = document.getElementById('rateForm') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name') as HTMLInputElement;
+    const mail = document.getElementById('email') as HTMLInputElement;
+    const ds = document.getElementById('ds') as HTMLInputElement;
+    if (!name.value || !mail.checkValidity() || !ds.checked) {
+      if (!name.value) name.reportValidity();
+      else if (!mail.checkValidity()) mail.reportValidity();
+      else ds.focus();
+      return;
+    }
+    try {
+      const formData = new FormData(form);
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+    } catch (err) {
+      console.error('Formular-Versand fehlgeschlagen:', err);
+    }
+    form.style.display = 'none';
+    document.querySelector('.steps-nav')?.setAttribute('style', 'display:none');
+    const done = document.getElementById('formDone');
+    if (done) done.style.display = 'block';
+  });
+</script>
