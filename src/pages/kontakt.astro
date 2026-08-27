@@ -24,11 +24,11 @@ import Layout from "../layouts/Layout.astro";
 <a href="mailto:marc.bertsch@bertsch-immo.de">marc.bertsch@bertsch-immo.de</a><br/>
 <a href="tel:+4917641771712">0176 41771712</a>
 </address>
-<div aria-label="Platzhalter für Anfahrtskarte" class="map-ph" role="img">
-<div aria-hidden="true" class="q-grid-bg"></div>
-<span>Anfahrtskarte · Weylstraße 8, Mannheim</span>
+<div class="map-ph">
+<span class="q-chip">Anfahrt</span>
+<p style="margin:12px 0 18px;color:var(--ink-soft)">Weylstraße 8 · 68167 Mannheim</p>
+<a class="btn btn-ghost dark-on-light" href="https://www.google.com/maps/search/?api=1&query=Weylstra%C3%9Fe+8+68167+Mannheim" target="_blank" rel="noopener">Route in Google Maps anzeigen ↗</a>
 </div>
-<p style="font-size:.78rem;color:var(--ink-soft);margin-top:10px">In der Umsetzung: statisches Kartenbild mit Link zu Google Maps (DSGVO-freundlich, ohne Cookie-Banner).</p>
 </div>
 <div class="form-wrap reveal">
 <form id="contactForm" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate="">
@@ -56,7 +56,6 @@ import Layout from "../layouts/Layout.astro";
 <h3>Nachricht erhalten.</h3>
 <p style="color:var(--ink-soft)">Ich melde mich persönlich bei Ihnen – Marc Bertsch.</p>
 </div>
-<p class="form-note">Prototyp-Hinweis: Das Formular sendet noch keine Daten – Versand wird in der Umsetzung angebunden.</p>
 </div>
 </div>
 </section>
