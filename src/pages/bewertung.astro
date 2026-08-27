@@ -83,7 +83,6 @@ import Layout from "../layouts/Layout.astro";
 <h3 style="margin-top:14px">Vielen Dank für Ihr Vertrauen.</h3>
 <p style="color:var(--ink-soft);max-width:46ch;margin:0 auto">Ich melde mich persönlich innerhalb von 24 Stunden bei Ihnen – Marc Bertsch.<br/>Sie erreichen mich auch direkt unter <a href="tel:+4917641771712">0176 41771712</a>.</p>
 </div>
-<p class="form-note">Prototyp-Hinweis: Das Formular sendet noch keine Daten – Versand wird in der Umsetzung angebunden.</p>
 </div>
 <!-- Trust-Spalte -->
 <aside class="trust-side reveal">
@@ -93,7 +92,7 @@ import Layout from "../layouts/Layout.astro";
 <li>100 % kostenlos &amp; unverbindlich</li>
 <li>Persönliche Rückmeldung in 24 Stunden</li>
 <li>Marktdaten aus Mannheim &amp; Umgebung</li>
-<li>Immobilienmakler (IHK) · Berater (LBS)</li>
+<li>Immobilienmakler &amp; -berater (IHK)</li>
 </ul>
 </aside>
 </div>
@@ -123,6 +122,14 @@ import Layout from "../layouts/Layout.astro";
     document.getElementById('formular')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   (window as any).goStep = goStep;
+
+  // Vorauswahl übernehmen, wenn über einen Button mit ?weg=... verlinkt wurde
+  const params = new URLSearchParams(window.location.search);
+  const wegParam = params.get('weg');
+  if (wegParam === 'erst' || wegParam === 'vorort') {
+    const wegSelect = document.getElementById('weg') as HTMLSelectElement;
+    if (wegSelect) wegSelect.value = wegParam;
+  }
 
   const form = document.getElementById('rateForm') as HTMLFormElement;
   form?.addEventListener('submit', async (e) => {
