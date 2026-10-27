@@ -1,6 +1,6 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://www.bertsch-immo.de",
+  site: "https://bertsch-immo.de",
   trailingSlash: "never",
 });
