@@ -3,8 +3,28 @@ export interface Props {
   title: string;
   description: string;
   path: string; // z.B. "/", "/verkaufen", ...
+  image?: string; // Vorschaubild für Social Media (Pfad unter /public oder absolute URL)
+  imageAlt?: string;
 }
-const { title, description, path } = Astro.props;
+const {
+  title,
+  description,
+  path,
+  image = "/images/hero.jpg",
+  imageAlt = "Marc Bertsch Immobilien – Immobilienmakler in Mannheim",
+} = Astro.props;
+
+const siteUrl = "https://www.bertsch-immo.de";
+const siteName = "Marc Bertsch Immobilien";
+const canonicalUrl = `${siteUrl}${path === "/" ? "" : path}`;
+const imageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
+
+// Social-Profile (für Footer und Schema.org "sameAs")
+const linkedinUrl = "https://www.linkedin.com/in/marc-bertsch-b759b4429/";
+// TODO: Link zum Google-Unternehmensprofil eintragen (z. B. https://maps.app.goo.gl/...),
+// sobald er vorliegt. Dann erscheint er automatisch im Footer und in "sameAs".
+const googleProfileUrl = "https://maps.google.com/?cid=2060678126836525466";
+const sameAs = [linkedinUrl, googleProfileUrl].filter(Boolean);
 
 const navItems = [
   { href: "/", label: "Start" },
@@ -23,14 +43,34 @@ const navItems = [
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{title}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={`https://www.bertsch-immo.de${path === "/" ? "" : path}`} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta name="theme-color" content="#664f4f" />
+
+<!-- Google Search Console: Verifizierungscode eintragen, sobald vorhanden
+<meta name="google-site-verification" content="HIER-CODE-EINTRAGEN" />
+-->
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={`https://www.bertsch-immo.de${path === "/" ? "" : path}`} />
+<meta property="og:url" content={canonicalUrl} />
 <meta property="og:locale" content="de_DE" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={imageAlt} />
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
 
 <!-- Fonts lokal über @fontsource wäre ideal; für den Start CDN mit preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,7 +95,8 @@ const navItems = [
   },
   "areaServed": ["Mannheim", "Ludwigshafen am Rhein", "Frankenthal", "Germersheim", "Eisenberg (Pfalz)"],
   "priceRange": "€€",
-  "knowsAbout": "Immobilienverkauf, Immobilienbewertung, Immobilienkauf in Mannheim und der Metropolregion Rhein-Neckar"
+  "knowsAbout": "Immobilienverkauf, Immobilienbewertung, Immobilienkauf in Mannheim und der Metropolregion Rhein-Neckar",
+  "sameAs": sameAs
 })} />
 
 <link rel="stylesheet" href="/styles/global.css" />
@@ -88,6 +129,20 @@ const navItems = [
       <img src="/images/logo-negativ.svg" alt="Marc Bertsch Immobilien" />
       <p>Marc Bertsch Immobilien · Weylstraße 8 · 68167 Mannheim<br />
       <a href="mailto:marc.bertsch@bertsch-immo.de">marc.bertsch@bertsch-immo.de</a> · <a href="tel:+4917641771712">0176 41771712</a></p>
+      <ul class="foot-social" aria-label="Social Media">
+        <li>
+          <a href={linkedinUrl} target="_blank" rel="noopener" aria-label="Marc Bertsch auf LinkedIn (öffnet in neuem Tab)">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </li>
+        {googleProfileUrl && (
+          <li>
+            <a href={googleProfileUrl} target="_blank" rel="noopener" aria-label="Marc Bertsch Immobilien bei Google (öffnet in neuem Tab)">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.24 10.29v3.6h5.06c-.22 1.3-1.55 3.8-5.06 3.8-3.05 0-5.53-2.52-5.53-5.63s2.48-5.63 5.53-5.63c1.73 0 2.9.74 3.56 1.37l2.43-2.34C16.67 3.99 14.65 3 12.24 3 7.27 3 3.24 7.03 3.24 12s4.03 9 9 9c5.2 0 8.64-3.65 8.64-8.8 0-.59-.06-1.04-.14-1.49l-8.5-.42z"/></svg>
+            </a>
+          </li>
+        )}
+      </ul>
     </div>
     <nav aria-label="Footer-Navigation">
       <a href="/bewertung">Immobilienbewertung</a>
