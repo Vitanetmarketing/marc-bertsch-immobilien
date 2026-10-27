@@ -286,6 +286,10 @@ footer img{height:44px;margin-bottom:16px}
 footer nav{display:flex;gap:20px;flex-wrap:wrap}
 footer nav a{color:rgba(232,219,201,.8)}
 footer nav a:hover{color:#fff}
+.foot-social{list-style:none;display:flex;gap:12px;margin:16px 0 0;padding:0}
+.foot-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--line-light);border-radius:50%;color:rgba(232,219,201,.8);transition:color .2s,border-color .2s}
+.foot-social a:hover,.foot-social a:focus-visible{color:#fff;border-color:rgba(232,219,201,.6)}
+.foot-social svg{display:block}
 .foot-bottom{margin-top:36px;padding-top:22px;border-top:1px solid var(--line-light);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.8rem;color:rgba(247,242,238,.45)}
 
 /* Reveal */
